@@ -5,13 +5,16 @@
 #include "Broker.h"
 #include "DataHandler.h"
 
+class Game;  // Forward declaration
+
 class Menu {
 public:
-    Menu();  // Default constructor
-    void displayBrokerMenu(Investor& investor, Broker& broker,DataHandler& dataHandler);
+    // Default constructor
+    Menu();
+
+    void displayMainMenu(Investor& investor, Broker& broker, DataHandler& dataHandler, Game& game);
+    void displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
+    void displayCryptoExchangeMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
 };
 
 #endif
-
-
-

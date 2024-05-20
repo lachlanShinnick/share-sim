@@ -10,9 +10,9 @@ class Game {
 public:
     Game(double initial_balance);
     void start();
+    void goToNextFinancialYear();
 
 private:
-    void goToNextFinancialYear();
 
     DataHandler dataHandler;
     Broker broker;

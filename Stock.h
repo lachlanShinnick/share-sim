@@ -1,16 +1,14 @@
 #pragma once
-#include <string>
+#include "Asset.h"
 
-class Stock {
+class Stock : public Asset {
 public:
     std::string ticker;
-    std::string name;
-    double price;
 
     // Default constructor
-    Stock() : ticker(""), name(""), price(0.0) {}
+    Stock() : Asset(), ticker("") {}
 
     // Parameterized constructor
     Stock(const std::string& ticker, const std::string& name, double price)
-        : ticker(ticker), name(name), price(price) {}
+        : Asset(name, price), ticker(ticker) {}
 };

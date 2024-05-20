@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Menu.h"
 #include <iostream>
 
 // Constructor
@@ -7,43 +8,10 @@ Game::Game(double initial_balance)
     std::cout << "Game initialized.\n";  // Debug statement
 }
 
-// Function to start the game
+
 void Game::start() {
-    bool running = true;
-
-    std::cout << "Game started.\n";  // Debug statement
-
-    while (running) {
-        std::cout << "\nMain Menu:\n";
-        std::cout << "1. Display Portfolio\n";
-        std::cout << "2. Go to Stock Broker\n";
-        std::cout << "3. Go To Next Financial Year\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Choose an option: ";
-        int choice;
-        std::cin >> choice;
-
-        switch (choice) {
-            case 1:
-                std::cout << "Displaying portfolio.\n";  // Debug statement
-                investor.DisplayPortfolio(dataHandler);
-                break;
-            case 2:
-                std::cout << "Going to stock broker.\n";  // Debug statement
-                menu.displayBrokerMenu(investor, broker, dataHandler);
-                break;
-            case 3:
-                std::cout << "Going to next financial year.\n";  // Debug statement
-                goToNextFinancialYear();
-                break;
-            case 4:
-                std::cout << "Exiting game.\n";  // Debug statement
-                running = false;
-                break;
-            default:
-                std::cout << "Invalid option, please try again.\n";
-        }
-    }
+    Menu menu;
+    menu.displayMainMenu(investor, broker, dataHandler, *this);
 }
 
 // Function to go to the next financial year
