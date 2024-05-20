@@ -1,14 +1,13 @@
 #ifndef INVESTOR_H
 #define INVESTOR_H
 
-#include "User.h"
 #include "Portfolio.h"
 #include "Broker.h"
+#include "Exchange.h"
 
-class Investor : public User {
-protected:
+class Investor {
+private:
     Portfolio investors_portfolio;
-    double balance;
 
 public:
     Investor(double initial_balance);
@@ -18,9 +17,11 @@ public:
     void DisplayPortfolio(const DataHandler& dataHandler);
     void Buy(Broker& broker, const DataHandler& dataHandler);
     void Sell(Broker& broker, const DataHandler& dataHandler);
+    void BuyCrypto(Exchange& exchange, const DataHandler& dataHandler);
+    void SellCrypto(Exchange& exchange, const DataHandler& dataHandler);
     void GoToNextFinancialYear();
     double GetBalance();
     void Print();
 };
 
-#endif
+#endif // INVESTOR_H

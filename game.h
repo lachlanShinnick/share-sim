@@ -1,8 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Broker.h"
 #include "Investor.h"
+#include "Broker.h"
+#include "Exchange.h"
 #include "DataHandler.h"
 #include "Menu.h"
 
@@ -13,12 +14,11 @@ public:
     void goToNextFinancialYear();
 
 private:
-
     DataHandler dataHandler;
     Broker broker;
+    Exchange exchange;
     Investor investor;
-    Menu menu;
     int currentYear;
 };
 
-#endif
+#endif // GAME_H

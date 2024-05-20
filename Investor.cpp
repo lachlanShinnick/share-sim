@@ -29,7 +29,7 @@ void Investor::Buy(Broker& broker, const DataHandler& dataHandler) {
     std::cout << "Enter quantity: ";
     std::cin >> quantity;
 
-    broker.buyStock(investors_portfolio, ticker, quantity, dataHandler);
+    broker.buyAsset(investors_portfolio, ticker, quantity, dataHandler);
 }
 
 // Sells Stock
@@ -42,7 +42,33 @@ void Investor::Sell(Broker& broker, const DataHandler& dataHandler) {
     std::cout << "Enter quantity: ";
     std::cin >> quantity;
 
-    broker.sellStock(investors_portfolio, ticker, quantity, dataHandler);
+    broker.sellAsset(investors_portfolio, ticker, quantity, dataHandler);
+}
+
+// Buys Crypto
+void Investor::BuyCrypto(Exchange& exchange, const DataHandler& dataHandler) {
+    std::string name;
+    int quantity;
+
+    std::cout << "Enter crypto name: ";
+    std::cin >> name;
+    std::cout << "Enter quantity: ";
+    std::cin >> quantity;
+
+    exchange.buyAsset(investors_portfolio, name, quantity, dataHandler);
+}
+
+// Sells Crypto
+void Investor::SellCrypto(Exchange& exchange, const DataHandler& dataHandler) {
+    std::string name;
+    int quantity;
+
+    std::cout << "Enter crypto name: ";
+    std::cin >> name;
+    std::cout << "Enter quantity: ";
+    std::cin >> quantity;
+
+    exchange.sellAsset(investors_portfolio, name, quantity, dataHandler);
 }
 
 // Increases current year by one

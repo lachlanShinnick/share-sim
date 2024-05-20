@@ -5,39 +5,39 @@
 Portfolio::Portfolio(double initial_cash) : cash(initial_cash), current_year(2014) {}
 
 // Method to buy an asset
-bool Portfolio::buyAsset(const Stock& stock, double amount, double price) {
+bool Portfolio::buyAsset(const std::shared_ptr<Asset>& asset, double amount, double price) {
     double totalCost = amount * price;
     if (cash >= totalCost) {
-        assets[stock.ticker].first = stock;
-        assets[stock.ticker].second += amount;
+        assets[asset->name].first = asset;
+        assets[asset->name].second += amount;
         cash -= totalCost;
         return true;
     } else {
-        std::cout << "Not enough balance to buy " << amount << " of " << stock.ticker << std::endl;
+        std::cout << "Not enough balance to buy " << amount << " of " << asset->name << std::endl;
         return false;
     }
 }
 
 // Method to sell an asset
-bool Portfolio::sellAsset(const std::string& ticker, double amount, double price) {
-    if (assets.find(ticker) != assets.end() && assets[ticker].second >= amount) {
+bool Portfolio::sellAsset(const std::string& name, double amount, double price) {
+    if (assets.find(name) != assets.end() && assets[name].second >= amount) {
         double totalRevenue = amount * price;
-        assets[ticker].second -= amount;
+        assets[name].second -= amount;
         cash += totalRevenue;
-        if (assets[ticker].second == 0) {
-            assets.erase(ticker);
+        if (assets[name].second == 0) {
+            assets.erase(name);
         }
         return true;
     } else {
-        std::cout << "Not enough " << ticker << " to sell." << std::endl;
+        std::cout << "Not enough " << name << " to sell." << std::endl;
         return false;
     }
 }
 
 // Method to get the amount of a specific asset
-double Portfolio::getAssetAmount(const std::string& ticker) const {
-    if (assets.find(ticker) != assets.end()) {
-        return assets.at(ticker).second;
+double Portfolio::getAssetAmount(const std::string& name) const {
+    if (assets.find(name) != assets.end()) {
+        return assets.at(name).second;
     } else {
         return 0.0;
     }
@@ -47,13 +47,18 @@ double Portfolio::getAssetAmount(const std::string& ticker) const {
 void Portfolio::getSummaryOfAssets(const DataHandler& dataHandler) const {
     std::cout << "Summary of Assets:" << std::endl;
     for (const auto& asset : assets) {
-        const Stock& stock = asset.second.first;
+        const std::shared_ptr<Asset>& asset_ptr = asset.second.first;
         double amount = asset.second.second;
         try {
-            Stock currentStock = dataHandler.getStockByTickerAndYear(stock.ticker, current_year);
-            std::cout << "Ticker: " << currentStock.ticker << ", Name: " << currentStock.name << ", Current Price: " << currentStock.price << ", Amount: " << amount << std::endl;
+            if (std::shared_ptr<Stock> stock = std::dynamic_pointer_cast<Stock>(asset_ptr)) {
+                Stock currentStock = dataHandler.getStockByTickerAndYear(stock->ticker, current_year);
+                std::cout << "Ticker: " << currentStock.ticker << ", Name: " << currentStock.name << ", Current Price: " << currentStock.price << ", Amount: " << amount << std::endl;
+            } else if (std::shared_ptr<Crypto> crypto = std::dynamic_pointer_cast<Crypto>(asset_ptr)) {
+                Crypto currentCrypto = dataHandler.getCryptoByCurrencyAndYear(crypto->name, current_year);
+                std::cout << "Crypto: " << currentCrypto.name << ", Current Price: " << currentCrypto.price << ", Amount: " << amount << std::endl;
+            }
         } catch (const std::out_of_range& e) {
-            std::cerr << "Ticker not found: " << stock.ticker << std::endl;
+            std::cerr << "Asset not found: " << asset_ptr->name << std::endl;
         } catch (const std::invalid_argument& e) {
             std::cerr << e.what() << std::endl;
         }

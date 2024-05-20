@@ -3,6 +3,7 @@
 
 #include "Investor.h"
 #include "Broker.h"
+#include "Exchange.h"
 #include "DataHandler.h"
 
 class Game;  // Forward declaration
@@ -12,9 +13,9 @@ public:
     // Default constructor
     Menu();
 
-    void displayMainMenu(Investor& investor, Broker& broker, DataHandler& dataHandler, Game& game);
+    void displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game);
     void displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
-    void displayCryptoExchangeMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
+    void displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler);
 };
 
 #endif

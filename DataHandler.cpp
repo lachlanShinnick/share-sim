@@ -16,15 +16,15 @@ int extractYear(const std::string& date) {
 // Constructor
 DataHandler::DataHandler() {
     std::cout << "Constructor Data Handler " << std::endl;
-    // loadCSV("data/2014.csv", stock_prices_2014);
-    // loadCSV("data/2015.csv", stock_prices_2015);
-    // loadCSV("data/2016.csv", stock_prices_2016);
-    // loadCSV("data/2017.csv", stock_prices_2017);
-    // loadCSV("data/2018.csv", stock_prices_2018);
-    // loadCSV("data/2019.csv", stock_prices_2019);
-    // loadCSV("data/2020.csv", stock_prices_2020);
-    // loadCSV("data/2021.csv", stock_prices_2021);
-    // loadCSV("data/2022.csv", stock_prices_2022);
+    loadCSV("data/2014.csv", stock_prices_2014);
+    loadCSV("data/2015.csv", stock_prices_2015);
+    loadCSV("data/2016.csv", stock_prices_2016);
+    loadCSV("data/2017.csv", stock_prices_2017);
+    loadCSV("data/2018.csv", stock_prices_2018);
+    loadCSV("data/2019.csv", stock_prices_2019);
+    loadCSV("data/2020.csv", stock_prices_2020);
+    loadCSV("data/2021.csv", stock_prices_2021);
+    loadCSV("data/2022.csv", stock_prices_2022);
     
     loadCryptoCSV("data/crypto_data.csv");
 

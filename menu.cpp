@@ -7,7 +7,7 @@ Menu::Menu() {
     // Any initialization if needed
 }
 
-void Menu::displayMainMenu(Investor& investor, Broker& broker, DataHandler& dataHandler, Game& game) {
+void Menu::displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game) {
     bool running = true;
 
     std::cout << "Game started.\n";  // Debug statement
@@ -34,7 +34,7 @@ void Menu::displayMainMenu(Investor& investor, Broker& broker, DataHandler& data
                 break;
             case 3:
                 std::cout << "Going to crypto exchange.\n";  // Debug statement
-                displayCryptoExchangeMenu(investor, broker, dataHandler);
+                displayCryptoExchangeMenu(investor, exchange, dataHandler);
                 break;
             case 4:
                 std::cout << "Going to next financial year.\n";  // Debug statement
@@ -79,7 +79,7 @@ void Menu::displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& da
     }
 }
 
-void Menu::displayCryptoExchangeMenu(Investor& investor, Broker& broker, DataHandler& dataHandler) {
+void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler) {
     bool cryptoMenuRunning = true;
     while (cryptoMenuRunning) {
         std::cout << "\nCrypto Exchange Menu:\n";
@@ -93,11 +93,11 @@ void Menu::displayCryptoExchangeMenu(Investor& investor, Broker& broker, DataHan
         switch (choice) {
             case 1:
                 std::cout << "Buying crypto...\n";  // Debug statement
-                // Add crypto buying functionality here
+                investor.BuyCrypto(exchange, dataHandler);
                 break;
             case 2:
                 std::cout << "Selling crypto...\n";  // Debug statement
-                // Add crypto selling functionality here
+                investor.SellCrypto(exchange, dataHandler);
                 break;
             case 3:
                 cryptoMenuRunning = false;

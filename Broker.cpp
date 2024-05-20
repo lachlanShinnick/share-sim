@@ -4,9 +4,9 @@
 #include <iostream>
 
 // Constructor
-Broker::Broker(const DataHandler& dataHandler) : commission_rate(0.01) {
+Broker::Broker(const DataHandler& dataHandler) : Market<Stock>(0.01) {
     std::cout << "Broker initialized.\n";
-    load_quantities(dataHandler.stock_prices_2022); // Initialize with the latest year's data
+    load_quantities(dataHandler.stock_prices_2014);
 }
 
 // Method to load stock quantities
@@ -26,13 +26,13 @@ void Broker::load_quantities(const std::unordered_map<std::string, Stock>& stock
             continue;
         }
 
-        inventory[stock.ticker] = std::make_pair(stock, quantity);
+        inventory[stock.ticker] = std::make_pair(std::make_shared<Stock>(stock), quantity);
         std::cout << "Loaded " << quantity << " shares of " << stock.ticker << " into broker inventory.\n";
     }
 }
 
 // Method to buy stock for the investor
-bool Broker::buyStock(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) {
+bool Broker::buyAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) {
     int currentYear = portfolio.getCurrentYear();
     try {
         Stock stock = dataHandler.getStockByTickerAndYear(ticker, currentYear);
@@ -41,7 +41,7 @@ bool Broker::buyStock(Portfolio& portfolio, const std::string& ticker, int quant
 
         if (inventory[ticker].second >= quantity && portfolio.getCash() >= totalCost) {
             inventory[ticker].second -= quantity;
-            portfolio.buyAsset(stock, quantity, price);
+            portfolio.buyAsset(std::make_shared<Stock>(stock), quantity, price);
             std::cout << "Bought " << quantity << " of " << stock.ticker << " at " << price << " each." << std::endl;
             return true;
         } else {
@@ -61,7 +61,7 @@ bool Broker::buyStock(Portfolio& portfolio, const std::string& ticker, int quant
 }
 
 // Method to sell stock for the investor
-bool Broker::sellStock(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) {
+bool Broker::sellAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) {
     int currentYear = portfolio.getCurrentYear();
     try {
         Stock stock = dataHandler.getStockByTickerAndYear(ticker, currentYear);

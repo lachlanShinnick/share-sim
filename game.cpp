@@ -1,17 +1,15 @@
 #include "Game.h"
-#include "Menu.h"
 #include <iostream>
 
 // Constructor
 Game::Game(double initial_balance)
-    : dataHandler(), broker(dataHandler), investor(initial_balance), currentYear(2014) {
+    : dataHandler(), broker(dataHandler), exchange(dataHandler), investor(initial_balance), currentYear(2014) {
     std::cout << "Game initialized.\n";  // Debug statement
 }
 
-
 void Game::start() {
     Menu menu;
-    menu.displayMainMenu(investor, broker, dataHandler, *this);
+    menu.displayMainMenu(investor, broker, exchange, dataHandler, *this);
 }
 
 // Function to go to the next financial year
