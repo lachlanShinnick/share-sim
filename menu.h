@@ -16,6 +16,9 @@ public:
     void displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game);
     void displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
     void displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler);
+
+private:
+    int getMenuChoice() const;
 };
 
-#endif
+#endif // MENU_H

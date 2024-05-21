@@ -4,8 +4,9 @@
 #include "Portfolio.h"
 #include "Broker.h"
 #include "Exchange.h"
+#include "User.h"
 
-class Investor {
+class Investor : public User{
 private:
     Portfolio investors_portfolio;
 
