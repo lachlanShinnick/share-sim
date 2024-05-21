@@ -6,7 +6,7 @@
 #include "Exchange.h"
 #include "User.h"
 
-class Investor : public User{
+class Investor : public User {
 private:
     Portfolio investors_portfolio;
 
@@ -23,6 +23,8 @@ public:
     void GoToNextFinancialYear();
     double GetBalance();
     void Print();
+    int getCurrentYear() const;
+    const Portfolio& getPortfolio() const;  // Add this method declaration
 };
 
 #endif // INVESTOR_H

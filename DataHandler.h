@@ -17,7 +17,6 @@ public:
     std::unordered_map<std::string, Stock> stock_prices_2019;
     std::unordered_map<std::string, Stock> stock_prices_2020;
     std::unordered_map<std::string, Stock> stock_prices_2021;
-    std::unordered_map<std::string, Stock> stock_prices_2022;
 
     // Crypto prices for each year [currency, price]
     std::unordered_map<std::string, Crypto> crypto_prices_2014;
@@ -28,7 +27,6 @@ public:
     std::unordered_map<std::string, Crypto> crypto_prices_2019;
     std::unordered_map<std::string, Crypto> crypto_prices_2020;
     std::unordered_map<std::string, Crypto> crypto_prices_2021;
-    std::unordered_map<std::string, Crypto> crypto_prices_2022;
 
     int current_year;
 

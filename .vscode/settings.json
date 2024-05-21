@@ -77,6 +77,10 @@
         "mutex": "cpp",
         "ratio": "cpp",
         "string_view": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "chrono": "cpp",
+        "forward_list": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }

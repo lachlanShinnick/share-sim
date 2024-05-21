@@ -2,6 +2,12 @@
 #include "Game.h"
 #include <iostream>
 #include <limits>
+#include <windows.h>  // Include the Windows header for Sleep
+
+// Remove or rename any max macro definitions
+#ifdef max
+#undef max
+#endif
 
 // Default constructor
 Menu::Menu() {
@@ -23,12 +29,16 @@ int Menu::getMenuChoice() const {
     }
 }
 
+void Menu::pauseForReadability() const {
+    Sleep(2000);  // Sleep for 2000 milliseconds (2 seconds)
+}
+
 void Menu::displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game) {
     bool running = true;
 
     std::cout << "Game started.\n";
 
-    while (running) {
+    while (running && shouldContinueGame) {
         std::cout << "\nMain Menu:\n";
         std::cout << "1. Display Portfolio\n";
         std::cout << "2. Go to Stock Broker\n";
@@ -54,24 +64,30 @@ void Menu::displayMainMenu(Investor& investor, Broker& broker, Exchange& exchang
             case 4:
                 std::cout << "Going to next financial year.\n";
                 game.goToNextFinancialYear();
+                if (!game.shouldContinueGame) {
+                    running = false;
+                }
                 break;
             case 5:
                 std::cout << "Exiting game.\n";
                 running = false;
+                game.shouldContinueGame = false;
                 break;
             default:
                 std::cout << "Invalid option, please try again.\n";
         }
+        pauseForReadability();
     }
 }
 
 void Menu::displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler) {
     bool brokerMenuRunning = true;
-    while (brokerMenuRunning) {
+    while (brokerMenuRunning && shouldContinueGame) {
         std::cout << "\nBroker Menu:\n";
         std::cout << "1. Buy Stock\n";
         std::cout << "2. Sell Stock\n";
-        std::cout << "3. Return to Main Menu\n";
+        std::cout << "3. Display All Stocks\n";  // Add this option
+        std::cout << "4. Return to Main Menu\n";
         std::cout << "Choose an option: ";
         int choice = getMenuChoice();
 
@@ -85,21 +101,27 @@ void Menu::displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& da
                 investor.Sell(broker, dataHandler);
                 break;
             case 3:
+                std::cout << "Displaying all stocks...\n";
+                broker.displayAllAssets(dataHandler, investor.getCurrentYear());  // Call the new method
+                break;
+            case 4:
                 brokerMenuRunning = false;
                 break;
             default:
                 std::cout << "Invalid option, please try again.\n";
         }
+        pauseForReadability();
     }
 }
 
 void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler) {
     bool cryptoMenuRunning = true;
-    while (cryptoMenuRunning) {
+    while (cryptoMenuRunning && shouldContinueGame) {
         std::cout << "\nCrypto Exchange Menu:\n";
         std::cout << "1. Buy Crypto\n";
         std::cout << "2. Sell Crypto\n";
-        std::cout << "3. Return to Main Menu\n";
+        std::cout << "3. Display All Cryptos\n";  // Add this option
+        std::cout << "4. Return to Main Menu\n";
         std::cout << "Choose an option: ";
         int choice = getMenuChoice();
 
@@ -113,10 +135,15 @@ void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, Dat
                 investor.SellCrypto(exchange, dataHandler);
                 break;
             case 3:
+                std::cout << "Displaying all cryptos...\n";
+                exchange.displayAllAssets(dataHandler, investor.getCurrentYear());  // Call the new method
+                break;
+            case 4:
                 cryptoMenuRunning = false;
                 break;
             default:
                 std::cout << "Invalid option, please try again.\n";
         }
+        pauseForReadability();
     }
 }

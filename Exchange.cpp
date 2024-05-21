@@ -22,9 +22,10 @@ void Exchange::load_quantities(const std::unordered_map<std::string, Crypto>& cr
         double quantity = 5000 + std::rand() % 5001;
 
         inventory[crypto.name] = std::make_pair(std::make_shared<Crypto>(crypto), quantity);
-        std::cout << "Loaded " << quantity << " units of " << crypto.name << " into exchange inventory.\n";
+        // Comment out or remove the debug output
     }
 }
+
 
 // Method to buy crypto for the investor
 bool Exchange::buyAsset(Portfolio& portfolio, const std::string& name, int quantity, const DataHandler& dataHandler) {
@@ -84,3 +85,30 @@ bool Exchange::sellAsset(Portfolio& portfolio, const std::string& name, int quan
         return false;
     }
 }
+
+// Method to get the available quantity of a cryptocurrency
+double Exchange::getAvailableQuantity(const std::string& name) const {
+    auto it = inventory.find(name);
+    if (it != inventory.end()) {
+        return it->second.second;
+    }
+    return 0.0;
+}
+
+void Exchange::displayAllAssets(const DataHandler& dataHandler, int currentYear) const {
+    std::cout << "All cryptos in exchange inventory:\n";
+    for (const auto& entry : inventory) {
+        const auto& crypto = entry.second.first;
+        double quantity = entry.second.second;
+
+        try {
+            Crypto currentCrypto = dataHandler.getCryptoByCurrencyAndYear(crypto->name, currentYear);
+            std::cout << "Name: " << currentCrypto.name << ", Price: " << currentCrypto.price << ", Quantity: " << quantity << "\n";
+        } catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << "\n";
+        }
+    }
+}
+
+
+

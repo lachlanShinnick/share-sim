@@ -23,6 +23,8 @@ public:
     double getCash() const;
     void incrementYear();
     int getCurrentYear() const;
+    double calculateTotalAssetsValue(const DataHandler& dataHandler) const;  // Add this method declaration
 };
 
 #endif // PORTFOLIO_H
+

@@ -5,8 +5,9 @@
 #include "Broker.h"
 #include "Exchange.h"
 #include "DataHandler.h"
+#include <windows.h>  // Include the Windows header for Sleep
 
-class Game;  // Forward declaration
+class Game;  // Forward declaration of the Game class
 
 class Menu {
 public:
@@ -19,6 +20,11 @@ public:
 
 private:
     int getMenuChoice() const;
+    void pauseForReadability() const;  // Method to pause for readability
+
+public:
+    bool shouldContinueGame = true;  // Add this member variable to track if the game should continue
 };
 
 #endif // MENU_H
+

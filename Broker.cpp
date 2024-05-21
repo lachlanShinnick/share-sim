@@ -27,7 +27,6 @@ void Broker::load_quantities(const std::unordered_map<std::string, Stock>& stock
         }
 
         inventory[stock.ticker] = std::make_pair(std::make_shared<Stock>(stock), quantity);
-        std::cout << "Loaded " << quantity << " shares of " << stock.ticker << " into broker inventory.\n";
     }
 }
 
@@ -87,5 +86,29 @@ bool Broker::sellAsset(Portfolio& portfolio, const std::string& ticker, int quan
     } catch (const std::length_error& e) {
         std::cerr << "Length error: " << e.what() << std::endl;
         return false;
+    }
+}
+
+// Method to get the available quantity of a stock
+double Broker::getAvailableQuantity(const std::string& ticker) const {
+    auto it = inventory.find(ticker);
+    if (it != inventory.end()) {
+        return it->second.second;
+    }
+    return 0.0;
+}
+
+void Broker::displayAllAssets(const DataHandler& dataHandler, int currentYear) const {
+    std::cout << "All stocks in broker inventory:\n";
+    for (const auto& entry : inventory) {
+        const auto& stock = entry.second.first;
+        double quantity = entry.second.second;
+
+        try {
+            Stock currentStock = dataHandler.getStockByTickerAndYear(stock->ticker, currentYear);
+            std::cout << "Ticker: " << currentStock.ticker << ", Name: " << currentStock.name << ", Price: " << currentStock.price << ", Quantity: " << quantity << "\n";
+        } catch (const std::exception& e) {
+            std::cerr << "Error: " << e.what() << "\n";
+        }
     }
 }

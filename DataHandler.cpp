@@ -24,7 +24,6 @@ DataHandler::DataHandler() {
     loadCSV("data/2019.csv", stock_prices_2019);
     loadCSV("data/2020.csv", stock_prices_2020);
     loadCSV("data/2021.csv", stock_prices_2021);
-    loadCSV("data/2022.csv", stock_prices_2022);
     
     loadCryptoCSV("data/crypto_data.csv");
 
@@ -47,19 +46,19 @@ void DataHandler::loadCSV(const std::string& fileName, std::unordered_map<std::s
 
         // Read ticker
         if (!std::getline(ss, ticker, ',')) {
-            std::cerr << "Error reading ticker from line: " << line << std::endl;
+            // std::cerr << "Error reading ticker from line: " << line << std::endl;
             continue;
         }
 
         // Read name
         if (!std::getline(ss, name, ',')) {
-            std::cerr << "Error reading name from line: " << line << std::endl;
+            // std::cerr << "Error reading name from line: " << line << std::endl;
             continue;
         }
 
         // Read price
         if (!std::getline(ss, priceStr, ',')) {
-            std::cerr << "Error reading price from line: " << line << std::endl;
+            // std::cerr << "Error reading price from line: " << line << std::endl;
             continue;
         }
 
@@ -71,28 +70,28 @@ void DataHandler::loadCSV(const std::string& fileName, std::unordered_map<std::s
                 price = std::stod(priceStr);
             }
         } catch (const std::invalid_argument& e) {
-            std::cerr << "Invalid argument for price conversion in line: " << line << " - " << e.what() << std::endl;
+            // std::cerr << "Invalid argument for price conversion in line: " << line << " - " << e.what() << std::endl;
             continue;
         } catch (const std::out_of_range& e) {
-            std::cerr << "Out of range value for price conversion in line: " << line << " - " << e.what() << std::endl;
+            // std::cerr << "Out of range value for price conversion in line: " << line << " - " << e.what() << std::endl;
             continue;
         }
 
         // Create a Stock object and insert into the map
         Stock stock(ticker, name, price);
         stockMap[ticker] = stock;
-        std::cout << "Loaded stock: " << ticker << ", " << name << ", " << price << std::endl;  // Debug statement
+        // std::cout << "Loaded stock: " << ticker << ", " << name << ", " << price << std::endl;  // Debug statement
     }
 
     file.close();
 }
 
 void DataHandler::loadCryptoCSV(const std::string& fileName) {
-    std::cout << "loading a crypto" << std::endl;
+    // std::cout << "loading a crypto" << std::endl;
     std::ifstream file(fileName);
 
     if (!file.is_open()) {
-        std::cerr << "Could not open the file " << fileName << "!" << std::endl;
+        // std::cerr << "Could not open the file " << fileName << "!" << std::endl;
         return;
     }
 
@@ -110,19 +109,19 @@ void DataHandler::loadCryptoCSV(const std::string& fileName) {
 
         // Read Currency_Name
         if (!std::getline(ss, name, ',')) {
-            std::cerr << "Error reading currency name from line: " << line << std::endl;
+            // std::cerr << "Error reading currency name from line: " << line << std::endl;
             continue;
         }
 
         // Read Date
         if (!std::getline(ss, date, ',')) {
-            std::cerr << "Error reading date from line: " << line << std::endl;
+            // std::cerr << "Error reading date from line: " << line << std::endl;
             continue;
         }
 
         // Read Price
         if (!std::getline(ss, priceStr, ',')) {
-            std::cerr << "Error reading price from line: " << line << std::endl;
+            // std::cerr << "Error reading price from line: " << line << std::endl;
             continue;
         }
 
@@ -130,10 +129,10 @@ void DataHandler::loadCryptoCSV(const std::string& fileName) {
         try {
             price = std::stod(priceStr);
         } catch (const std::invalid_argument& e) {
-            std::cerr << "Invalid argument for price conversion in line: " << line << " - " << e.what() << std::endl;
+            // std::cerr << "Invalid argument for price conversion in line: " << line << " - " << e.what() << std::endl;
             continue;
         } catch (const std::out_of_range& e) {
-            std::cerr << "Out of range value for price conversion in line: " << line << " - " << e.what() << std::endl;
+            // std::cerr << "Out of range value for price conversion in line: " << line << " - " << e.what() << std::endl;
             continue;
         }
 
@@ -141,15 +140,15 @@ void DataHandler::loadCryptoCSV(const std::string& fileName) {
         int year = extractYear(date);
 
         // Ensure the year is supported
-        if (year < 2014 || year > 2022) {
-            std::cerr << "Year not supported: " << year << std::endl;
+        if (year < 2014 || year > 2021) {
+            // std::cerr << "Year not supported: " << year << std::endl;
             continue;
         }
 
         // Check if this is the first entry for the currency in the year
         auto& cryptoMap = getCryptoMapByYear(year);
         if (cryptoMap.find(name) == cryptoMap.end()) {
-            std::cout << "Loaded crypto: " << name << ", Year: " << year << ", Price: " << price << std::endl;  // Debug statement
+            // std::cout << "Loaded crypto: " << name << ", Year: " << year << ", Price: " << price << std::endl;  // Debug statement
             cryptoMap[name] = Crypto(name, price);
         }
     }
@@ -167,7 +166,6 @@ std::unordered_map<std::string, Crypto>& DataHandler::getCryptoMapByYear(int yea
         case 2019: return crypto_prices_2019;
         case 2020: return crypto_prices_2020;
         case 2021: return crypto_prices_2021;
-        case 2022: return crypto_prices_2022;
         default: throw std::invalid_argument("Year not supported");
     }
 }
@@ -182,7 +180,6 @@ Stock DataHandler::getStockByTickerAndYear(const std::string& ticker, int year) 
         case 2019: return stock_prices_2019.at(ticker);
         case 2020: return stock_prices_2020.at(ticker);
         case 2021: return stock_prices_2021.at(ticker);
-        case 2022: return stock_prices_2022.at(ticker);
         default: throw std::invalid_argument("Year not supported");
     }
 }
@@ -197,8 +194,6 @@ Crypto DataHandler::getCryptoByCurrencyAndYear(const std::string& currency, int 
         case 2019: return crypto_prices_2019.at(currency);
         case 2020: return crypto_prices_2020.at(currency);
         case 2021: return crypto_prices_2021.at(currency);
-        case 2022: return crypto_prices_2022.at(currency);
         default: throw std::invalid_argument("Year not supported");
     }
 }
-

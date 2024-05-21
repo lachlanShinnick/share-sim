@@ -89,3 +89,26 @@ void Portfolio::incrementYear() {
 int Portfolio::getCurrentYear() const {
     return current_year;
 }
+
+// Method to calculate the total value of all assets
+double Portfolio::calculateTotalAssetsValue(const DataHandler& dataHandler) const {
+    double totalValue = 0.0;
+    for (const auto& asset : assets) {
+        const std::shared_ptr<Asset>& asset_ptr = asset.second.first;
+        double amount = asset.second.second;
+        try {
+            if (auto stock = std::dynamic_pointer_cast<Stock>(asset_ptr)) {
+                Stock currentStock = dataHandler.getStockByTickerAndYear(stock->ticker, current_year);
+                totalValue += currentStock.price * amount;
+            } else if (auto crypto = std::dynamic_pointer_cast<Crypto>(asset_ptr)) {
+                Crypto currentCrypto = dataHandler.getCryptoByCurrencyAndYear(crypto->name, current_year);
+                totalValue += currentCrypto.price * amount;
+            }
+        } catch (const std::out_of_range& e) {
+            std::cerr << "Asset not found: " << asset_ptr->name << std::endl;
+        } catch (const std::invalid_argument& e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+    return totalValue;
+}

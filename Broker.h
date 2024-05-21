@@ -10,6 +10,10 @@ public:
     void load_quantities(const std::unordered_map<std::string, Stock>& stocks) override;
     bool buyAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) override;
     bool sellAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) override;
+    double getAvailableQuantity(const std::string& ticker) const;  // Add this method declaration
+    void displayAllAssets(const DataHandler& dataHandler, int currentYear) const;
 };
 
 #endif // BROKER_H
+
+
