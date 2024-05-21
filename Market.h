@@ -18,6 +18,7 @@ public:
     virtual void load_quantities(const std::unordered_map<std::string, AssetType>& assets) = 0;
     virtual bool buyAsset(Portfolio& portfolio, const std::string& symbol, int quantity, const DataHandler& dataHandler) = 0;
     virtual bool sellAsset(Portfolio& portfolio, const std::string& symbol, int quantity, const DataHandler& dataHandler) = 0;
+    virtual void displayAllAssets(const DataHandler& dataHandler, int currentYear) const  = 0;
 };
 
 #endif

@@ -10,7 +10,7 @@
 
 class Game {
 public:
-    Game(double initial_balance);
+    Game(Investor* investor);
     void start();
     void goToNextFinancialYear();
     void displayFinalResults();  // Add this method declaration
@@ -22,7 +22,7 @@ private:
     DataHandler dataHandler;
     Broker broker;
     Exchange exchange;
-    Investor investor;
+    Investor* investor;  // Use a pointer to Investor
     int currentYear;
     double initialBalance;  // Store the initial balance
 };

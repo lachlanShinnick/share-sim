@@ -17,6 +17,7 @@ public:
     void displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game);
     void displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
     void displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler);
+    Investor* chooseInvestorType();  // New function to choose the investor type
 
 private:
     int getMenuChoice() const;
@@ -27,4 +28,3 @@ public:
 };
 
 #endif // MENU_H
-

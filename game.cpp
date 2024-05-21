@@ -3,15 +3,15 @@
 #include <iomanip>  // Ensure this is included for std::setprecision
 
 // Constructor
-Game::Game(double initial_balance)
-    : dataHandler(), broker(dataHandler), exchange(dataHandler), investor(initial_balance), currentYear(2014), initialBalance(initial_balance) {
+Game::Game(Investor* investor)
+    : dataHandler(), broker(dataHandler), exchange(dataHandler), investor(investor), currentYear(2014), initialBalance(investor->GetBalance()) {
     std::cout << "Game initialized.\n";  // Debug statement
 }
 
 void Game::start() {
     Menu menu;
     while (shouldContinueGame) {
-        menu.displayMainMenu(investor, broker, exchange, dataHandler, *this);
+        menu.displayMainMenu(*investor, broker, exchange, dataHandler, *this);
     }
 }
 
@@ -24,7 +24,7 @@ void Game::goToNextFinancialYear() {
     }
 
     currentYear++;
-    investor.GoToNextFinancialYear();
+    investor->GoToNextFinancialYear();
 
     std::cout << "Loading quantities for year: " << currentYear << std::endl;  // Debug statement
 
@@ -71,8 +71,8 @@ void Game::goToNextFinancialYear() {
 
 // Function to display the final results
 void Game::displayFinalResults() {
-    double finalCash = investor.GetBalance();
-    double totalAssetsValue = investor.getPortfolio().calculateTotalAssetsValue(dataHandler);
+    double finalCash = investor->GetBalance();
+    double totalAssetsValue = investor->getPortfolio().calculateTotalAssetsValue(dataHandler);
     double finalBalance = finalCash + totalAssetsValue;
     double profit = finalBalance - initialBalance;
 

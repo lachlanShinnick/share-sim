@@ -109,6 +109,3 @@ void Exchange::displayAllAssets(const DataHandler& dataHandler, int currentYear)
         }
     }
 }
-
-
-

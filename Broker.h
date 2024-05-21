@@ -11,9 +11,7 @@ public:
     bool buyAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) override;
     bool sellAsset(Portfolio& portfolio, const std::string& ticker, int quantity, const DataHandler& dataHandler) override;
     double getAvailableQuantity(const std::string& ticker) const;  // Add this method declaration
-    void displayAllAssets(const DataHandler& dataHandler, int currentYear) const;
+    void displayAllAssets(const DataHandler& dataHandler, int currentYear) const override;
 };
 
 #endif // BROKER_H
-
-

@@ -1,4 +1,7 @@
 #include "Menu.h"
+#include "Individual.h"
+#include "Partnership.h"
+#include "Company.h"
 #include "Game.h"
 #include <iostream>
 #include <limits>
@@ -145,5 +148,59 @@ void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, Dat
                 std::cout << "Invalid option, please try again.\n";
         }
         pauseForReadability();
+    }
+}
+
+Investor* Menu::chooseInvestorType() {
+    std::cout << "Choose Investor Type:\n";
+    std::cout << "1. Individual\n";
+    std::cout << "2. Partnership\n";
+    std::cout << "3. Company\n";
+    std::cout << "Choose an option: ";
+    int choice = getMenuChoice();
+
+    double initial_balance;
+    std::cout << "Enter initial balance: ";
+    std::cin >> initial_balance;
+
+    switch (choice) {
+        case 1: {
+            std::string investor_name;
+            std::cout << "Enter investor name: ";
+            std::cin.ignore(); // To ignore any leftover newline character from previous input
+            std::getline(std::cin, investor_name);
+            return new Individual(initial_balance, investor_name);
+        }
+        case 2: {
+            std::vector<std::string> partner_names(2);
+            std::cout << "Enter name of first partner: ";
+            std::cin.ignore();
+            std::getline(std::cin, partner_names[0]);
+            std::cout << "Enter name of second partner: ";
+            std::getline(std::cin, partner_names[1]);
+            return new Partnership(initial_balance, partner_names);
+        }
+        case 3: {
+            std::string company_name;
+            std::vector<std::string> board_of_directors;
+            std::cout << "Enter company name: ";
+            std::cin.ignore(); // To ignore any leftover newline character from previous input
+            std::getline(std::cin, company_name);
+            std::string director;
+            std::cout << "Enter names of board of directors (enter 'done' to finish): \n";
+            while (true) {
+                std::getline(std::cin, director);
+                if (director == "done") break;
+                board_of_directors.push_back(director);
+            }
+            return new Company(initial_balance, company_name, board_of_directors);
+        }
+        default:
+            std::cout << "Invalid option, defaulting to Individual.\n";
+            std::string investor_name;
+            std::cout << "Enter investor name: ";
+            std::cin.ignore(); // To ignore any leftover newline character from previous input
+            std::getline(std::cin, investor_name);
+            return new Individual(initial_balance, investor_name);
     }
 }
