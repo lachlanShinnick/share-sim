@@ -20,4 +20,4 @@ public:
     void getInvestorNameOrNames() const override;
 };
 
-#endif // COMPANY_H
+#endif 

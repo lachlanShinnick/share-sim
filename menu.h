@@ -27,4 +27,4 @@ public:
     bool shouldContinueGame = true;  // Add this member variable to track if the game should continue
 };
 
-#endif // MENU_H
+#endif 

@@ -18,4 +18,4 @@ public:
     void getInvestorNameOrNames() const override;
 };
 
-#endif // PARTNERSHIP_H
+#endif

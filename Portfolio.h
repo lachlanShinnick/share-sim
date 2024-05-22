@@ -26,4 +26,4 @@ public:
     double calculateTotalAssetsValue(const DataHandler& dataHandler) const;
 };
 
-#endif // PORTFOLIO_H
+#endif 

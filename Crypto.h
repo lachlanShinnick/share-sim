@@ -12,11 +12,10 @@ public:
 
     // Implementation of getName for Crypto
     std::string getName() const override {
-        return name; // Return the name of the crypto
+        return name; 
     }
 
-    // Implementation of getPrice for Crypto
     double getPrice() const override {
-        return price; // Return the price of the crypto
+        return price; 
     }
 };
