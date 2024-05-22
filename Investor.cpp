@@ -162,6 +162,7 @@ void Investor::saveHighScore(const std::string& filename, double initial_balance
     std::ofstream file(filename);
     if (file.is_open()) {
         file << percentage_gain << "\n";
+        // Capture the investor names in a string stream
         std::ostringstream oss;
         getInvestorNameOrNames();
         oss << "\n";  // Ensure there's a newline after the name
@@ -171,6 +172,7 @@ void Investor::saveHighScore(const std::string& filename, double initial_balance
         std::cerr << "Unable to open file for writing.\n";
     }
 }
+
 
 bool Investor::loadHighScore(const std::string& filename, double& highScore, std::string& name) {
     std::ifstream file(filename);
