@@ -1,6 +1,8 @@
 #include "Game.h"
+#include "Art.h"  // Include the header for the ASCII art
+
 #include <iostream>
-#include <iomanip>  // Ensure this is included for std::setprecision
+#include <iomanip>
 
 // Constructor
 Game::Game(Investor* investor)
@@ -9,13 +11,16 @@ Game::Game(Investor* investor)
 }
 
 void Game::start() {
-    Menu menu;
+    displayTitle();  // Display the ASCII art title
+    menu.pauseForReadability();  // Pause for readability
+
     while (shouldContinueGame) {
         menu.displayMainMenu(*investor, broker, exchange, dataHandler, *this);
     }
+    investor->Print(dataHandler);  // Check and print high score at the end of the game
+    menu.pauseForReadability();  // Pause for readability
 }
 
-// Function to go to the next financial year
 void Game::goToNextFinancialYear() {
     if (currentYear >= 2021) {  // Check if the year is 2021 or beyond
         displayFinalResults();  // Display the final results
@@ -67,9 +72,9 @@ void Game::goToNextFinancialYear() {
     }
 
     std::cout << "Current year is now: " << currentYear << std::endl;  // Debug statement
+    menu.pauseForReadability();  // Pause for readability
 }
 
-// Function to display the final results
 void Game::displayFinalResults() {
     double finalCash = investor->GetBalance();
     double totalAssetsValue = investor->getPortfolio().calculateTotalAssetsValue(dataHandler);
@@ -82,4 +87,6 @@ void Game::displayFinalResults() {
     std::cout << "Total Value of Assets: $" << std::fixed << std::setprecision(2) << totalAssetsValue << "\n";
     std::cout << "Final Balance (Cash + Assets): $" << std::fixed << std::setprecision(2) << finalBalance << "\n";
     std::cout << "Total Profit: $" << std::fixed << std::setprecision(2) << profit << "\n";
+
+    menu.pauseForReadability();  // Pause for readability
 }

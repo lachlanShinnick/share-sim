@@ -22,3 +22,4 @@ public:
         return price; // Return the price of the stock
     }
 };
+

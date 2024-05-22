@@ -69,9 +69,14 @@ bool Broker::sellAsset(Portfolio& portfolio, const std::string& ticker, int quan
         double commission = totalRevenue * commission_rate;
         totalRevenue -= commission;
 
-        if (portfolio.sellAsset(ticker, quantity, price)) {
+        std::cout << "Attempting to sell " << quantity << " of " << ticker << " at " << price << " each.\n";
+        double ownedQuantity = portfolio.getAssetAmount(stock.name);  // Use the name from the retrieved stock
+        std::cout << "Portfolio before sale: " << ownedQuantity << " shares of " << ticker << "\n";
+
+        if (portfolio.sellAsset(stock.name, quantity, price)) {  // Use the name from the retrieved stock
             inventory[ticker].second += quantity;
-            std::cout << "Sold " << quantity << " of " << ticker << " at " << price << " each with a commission of " << commission << "." << std::endl;
+            std::cout << "Sold " << quantity << " of " << ticker << " at " << price << " each with a commission of " << commission << ".\n";
+            std::cout << "Portfolio after sale: " << portfolio.getAssetAmount(stock.name) << " shares of " << ticker << "\n";
             return true;
         } else {
             std::cout << "Not enough stock in portfolio to sell.\n";
@@ -88,6 +93,8 @@ bool Broker::sellAsset(Portfolio& portfolio, const std::string& ticker, int quan
         return false;
     }
 }
+
+
 
 // Method to get the available quantity of a stock
 double Broker::getAvailableQuantity(const std::string& ticker) const {

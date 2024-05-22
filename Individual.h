@@ -13,8 +13,8 @@ public:
     // Constructor to initialize the balance and name
     Individual(double initial_balance, const std::string& investor_name);
 
-    void Print() override;
-    void getInvestorNameOrNames() override;
+    void Print(const DataHandler& dataHandler) const override;
+    void getInvestorNameOrNames() const override;
 };
 
 #endif // INDIVIDUAL_H

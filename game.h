@@ -6,15 +6,15 @@
 #include "Exchange.h"
 #include "DataHandler.h"
 #include "Menu.h"
-#include <iomanip>  // Ensure this is included for std::setprecision
+#include <iomanip>
 
 class Game {
 public:
     Game(Investor* investor);
     void start();
     void goToNextFinancialYear();
-    void displayFinalResults();  // Add this method declaration
-    int getCurrentYear() const { return currentYear; }  // Add a method to get the current year
+    void displayFinalResults();
+    int getCurrentYear() const { return currentYear; }
 
     bool shouldContinueGame = true;
 
@@ -22,9 +22,10 @@ private:
     DataHandler dataHandler;
     Broker broker;
     Exchange exchange;
-    Investor* investor;  // Use a pointer to Investor
+    Investor* investor;
     int currentYear;
-    double initialBalance;  // Store the initial balance
+    double initialBalance;
+    Menu menu;  // Add this member variable
 };
 
 #endif // GAME_H

@@ -8,7 +8,9 @@ Portfolio::Portfolio(double initial_cash) : cash(initial_cash), current_year(201
 bool Portfolio::buyAsset(const std::shared_ptr<Asset>& asset, double amount, double price) {
     double totalCost = amount * price;
     if (cash >= totalCost) {
-        assets[asset->name].first = asset;
+        if (assets.find(asset->name) == assets.end()) {
+            assets[asset->name] = std::make_pair(asset, 0);
+        }
         assets[asset->name].second += amount;
         cash -= totalCost;
         return true;

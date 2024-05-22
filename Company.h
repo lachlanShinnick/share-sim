@@ -16,8 +16,8 @@ public:
     // Constructor to initialize the balance, company name, and board of directors
     Company(double initial_balance, const std::string& company_name, const std::vector<std::string>& board);
 
-    void Print() override;
-    void getInvestorNameOrNames() override;
+    void Print(const DataHandler& dataHandler) const override;
+    void getInvestorNameOrNames() const override;
 };
 
 #endif // COMPANY_H

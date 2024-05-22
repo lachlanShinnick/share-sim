@@ -14,8 +14,8 @@ public:
     // Constructor to initialize the balance and partner names
     Partnership(double initial_balance, const std::vector<std::string>& names);
 
-    void Print() override;
-    void getInvestorNameOrNames() override;
+    void Print(const DataHandler& dataHandler) const override;
+    void getInvestorNameOrNames() const override;
 };
 
 #endif // PARTNERSHIP_H

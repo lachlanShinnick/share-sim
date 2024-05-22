@@ -5,14 +5,18 @@
 #include "Broker.h"
 #include "Exchange.h"
 #include "User.h"
+#include <fstream>
+#include <string>
 
 class Investor : public User {
-private:
+protected:
     Portfolio investors_portfolio;
+    double initial_balance;  // Add this member variable
 
 public:
     Investor(double initial_balance);
     virtual ~Investor();
+
     // virtual functions implemented from User
     bool CheckBalance(double transaction) override;
     void DisplayPortfolio(const DataHandler& dataHandler) override;
@@ -23,10 +27,17 @@ public:
     void GoToNextFinancialYear() override;
     double GetBalance() override;
     int getCurrentYear() const override;
-    const Portfolio& getPortfolio() const override;  // Add this method declaration
+    const Portfolio& getPortfolio() const override;
+
     // virtual functions every Investor must implement
-    virtual void Print() = 0; // Prints the users portfolio to a csv file
-    virtual void getInvestorNameOrNames() = 0;
+    virtual void Print(const DataHandler& dataHandler) const = 0;  // Add dataHandler as parameter
+    virtual void getInvestorNameOrNames() const = 0;
+
+    // New methods for high score functionality
+    double calculatePercentageGain(double initial_balance, const DataHandler& dataHandler) const;
+    void saveHighScore(const std::string& filename, double initial_balance, const DataHandler& dataHandler) const;
+    static bool loadHighScore(const std::string& filename, double& highScore, std::string& name);
+    void updateHallOfFame(const std::string& filename, double initial_balance, const DataHandler& dataHandler) const;
 };
 
 #endif // INVESTOR_H

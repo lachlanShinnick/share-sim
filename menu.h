@@ -18,10 +18,10 @@ public:
     void displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& dataHandler);
     void displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, DataHandler& dataHandler);
     Investor* chooseInvestorType();  // New function to choose the investor type
+    void pauseForReadability() const;
 
 private:
-    int getMenuChoice() const;
-    void pauseForReadability() const;  // Method to pause for readability
+    int getMenuChoice() const;  // Method to pause for readability
 
 public:
     bool shouldContinueGame = true;  // Add this member variable to track if the game should continue
