@@ -33,7 +33,7 @@ int Menu::getMenuChoice() const {
 }
 
 void Menu::pauseForReadability() const {
-    Sleep(1000);  // Sleep for 2000 milliseconds (2 seconds)
+    Sleep(1000);  // Sleep for 1000 milliseconds (1 seconds)
 }
 
 void Menu::displayMainMenu(Investor& investor, Broker& broker, Exchange& exchange, DataHandler& dataHandler, Game& game) {
@@ -65,7 +65,7 @@ void Menu::displayMainMenu(Investor& investor, Broker& broker, Exchange& exchang
                 displayCryptoExchangeMenu(investor, exchange, dataHandler);
                 break;
             case 4:
-                std::cout << "Going to next financial year.\n";
+                std::cout << "\nGoing to next financial year.\n";
                 game.goToNextFinancialYear();
                 if (!game.shouldContinueGame) {
                     running = false;
@@ -89,7 +89,7 @@ void Menu::displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& da
         std::cout << "\nBroker Menu:\n";
         std::cout << "1. Buy Stock\n";
         std::cout << "2. Sell Stock\n";
-        std::cout << "3. Display All Stocks\n";  // Add this option
+        std::cout << "3. Display All Stocks\n";  
         std::cout << "4. Return to Main Menu\n";
         std::cout << "\nChoose an option: ";
         int choice = getMenuChoice();
@@ -105,7 +105,7 @@ void Menu::displayBrokerMenu(Investor& investor, Broker& broker, DataHandler& da
                 break;
             case 3:
                 std::cout << "Displaying all stocks...\n\n";
-                broker.displayAllAssets(dataHandler, investor.getCurrentYear());  // Call the new method
+                broker.displayAllAssets(dataHandler, investor.getCurrentYear());  
                 break;
             case 4:
                 brokerMenuRunning = false;
@@ -123,7 +123,7 @@ void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, Dat
         std::cout << "\nCrypto Exchange Menu:\n";
         std::cout << "1. Buy Crypto\n";
         std::cout << "2. Sell Crypto\n";
-        std::cout << "3. Display All Cryptos\n";  // Add this option
+        std::cout << "3. Display All Cryptos\n"; 
         std::cout << "4. Return to Main Menu\n";
         std::cout << "\nChoose an option: ";
         int choice = getMenuChoice();
@@ -139,7 +139,7 @@ void Menu::displayCryptoExchangeMenu(Investor& investor, Exchange& exchange, Dat
                 break;
             case 3:
                 std::cout << "Displaying all cryptos...\n\n";
-                exchange.displayAllAssets(dataHandler, investor.getCurrentYear());  // Call the new method
+                exchange.displayAllAssets(dataHandler, investor.getCurrentYear()); 
                 break;
             case 4:
                 cryptoMenuRunning = false;

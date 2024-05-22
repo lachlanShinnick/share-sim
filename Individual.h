@@ -7,7 +7,7 @@
 
 class Individual : public Investor {
 private:
-    std::string name; // Member variable to store the name of the individual
+    std::string name; // Variable to store the name of the individual
 
 public:
     // Constructor to initialize the balance and name
@@ -17,4 +17,4 @@ public:
     void getInvestorNameOrNames() const override;
 };
 
-#endif // INDIVIDUAL_H
+#endif 

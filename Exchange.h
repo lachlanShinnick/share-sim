@@ -10,8 +10,8 @@ public:
     void load_quantities(const std::unordered_map<std::string, Crypto>& cryptos) override;
     bool buyAsset(Portfolio& portfolio, const std::string& name, int quantity, const DataHandler& dataHandler) override;
     bool sellAsset(Portfolio& portfolio, const std::string& name, int quantity, const DataHandler& dataHandler) override;
-    double getAvailableQuantity(const std::string& name) const;  // Add this method declaration
-    void displayAllAssets(const DataHandler& dataHandler, int currentYear) const override;  // Update this method declaration
+    double getAvailableQuantity(const std::string& name) const;  
+    void displayAllAssets(const DataHandler& dataHandler, int currentYear) const override; 
 
 };
 

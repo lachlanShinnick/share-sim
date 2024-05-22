@@ -1,7 +1,6 @@
 #include "Portfolio.h"
 #include <iostream>
 
-// Constructor
 Portfolio::Portfolio(double initial_cash) : cash(initial_cash), current_year(2014) {}
 
 // Method to buy an asset
@@ -81,7 +80,6 @@ double Portfolio::getCash() const {
 void Portfolio::incrementYear() {
     if (current_year < 2022) {
         current_year++;
-        std::cout << "Year incremented to: " << current_year << std::endl;
     } else {
         std::cout << "You have reached the maximum year limit!" << std::endl;
     }

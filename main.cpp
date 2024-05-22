@@ -7,6 +7,6 @@ int main() {
     Investor* investor = menu.chooseInvestorType();
     Game game(investor);
     game.start();
-    delete investor; // Remember to delete the dynamically allocated investor
+    delete investor; 
     return 0;
 }

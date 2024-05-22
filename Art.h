@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+// Art to display at the startof the game
 void displayTitle() {
     std::cout << "                                          /$$                     /$$                         /$$             /$$     /$$                    " << std::endl;
     std::cout << "                                         | $$                    |__/                        | $$            | $$    |__/                    " << std::endl;

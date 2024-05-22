@@ -38,6 +38,7 @@ bool Broker::buyAsset(Portfolio& portfolio, const std::string& ticker, int quant
         double price = stock.price;
         double totalCost = price * quantity;
 
+        // If buy is valid
         if (inventory[ticker].second >= quantity && portfolio.getCash() >= totalCost) {
             inventory[ticker].second -= quantity;
             portfolio.buyAsset(std::make_shared<Stock>(stock), quantity, price);

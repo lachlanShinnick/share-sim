@@ -9,7 +9,7 @@
 
 class Company : public Investor {
 private:
-    std::string company_name;               // Member variable to store the company name
+    std::string company_name;               // Variable to store the company name
     std::vector<std::string> board_of_directors; // Vector to store the names of the board of directors
 
 public:

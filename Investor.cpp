@@ -5,19 +5,22 @@
 #include <sstream>
 
 Investor::Investor(double initial_balance) : investors_portfolio(initial_balance), initial_balance(initial_balance) {
-    std::cout << "Investor initialized.\n";  // Debug statement
+    std::cout << "Investor initialized.\n"; 
 }
 
 Investor::~Investor() {}
 
+// Method to check if the investor has enough balance for a transaction
 bool Investor::CheckBalance(double transaction) {
     return investors_portfolio.getCash() >= transaction;
 }
 
+// Method to display the investor's portfolio
 void Investor::DisplayPortfolio(const DataHandler& dataHandler) {
     investors_portfolio.getSummaryOfAssets(dataHandler);
 }
 
+// Method for buying stocks
 void Investor::Buy(Broker& broker, const DataHandler& dataHandler) {
     std::string ticker;
     int quantity;
@@ -43,6 +46,7 @@ void Investor::Buy(Broker& broker, const DataHandler& dataHandler) {
     broker.buyAsset(investors_portfolio, ticker, quantity, dataHandler);
 }
 
+// Method for selling stocks
 void Investor::Sell(Broker& broker, const DataHandler& dataHandler) {
     std::string ticker;
     int quantity;
@@ -75,8 +79,7 @@ void Investor::Sell(Broker& broker, const DataHandler& dataHandler) {
     }
 }
 
-
-
+// Method for buying cryptocurrencies
 void Investor::BuyCrypto(Exchange& exchange, const DataHandler& dataHandler) {
     std::string name;
     int quantity;
@@ -101,6 +104,7 @@ void Investor::BuyCrypto(Exchange& exchange, const DataHandler& dataHandler) {
     exchange.buyAsset(investors_portfolio, name, quantity, dataHandler);
 }
 
+// Method for seling cryptocurrencies
 void Investor::SellCrypto(Exchange& exchange, const DataHandler& dataHandler) {
     std::string name;
     int quantity;
@@ -128,10 +132,11 @@ void Investor::SellCrypto(Exchange& exchange, const DataHandler& dataHandler) {
     exchange.sellAsset(investors_portfolio, name, quantity, dataHandler);
 }
 
+// Go to the next financial year
 void Investor::GoToNextFinancialYear() {
     investors_portfolio.incrementYear();
-    std::cout << "Current year is now: " << investors_portfolio.getCurrentYear() << std::endl;  // Debug statement
 }
+
 
 double Investor::GetBalance() {
     return investors_portfolio.getCash();
@@ -145,10 +150,12 @@ const Portfolio& Investor::getPortfolio() const {
     return investors_portfolio;
 }
 
+// Get percentage gain, so high score can be updated
 double Investor::calculatePercentageGain(double initial_balance, const DataHandler& dataHandler) const {
     double final_balance = investors_portfolio.getCash() + investors_portfolio.calculateTotalAssetsValue(dataHandler);
     return ((final_balance - initial_balance) / initial_balance) * 100.0;
 }
+
 
 void Investor::saveHighScore(const std::string& filename, double initial_balance, const DataHandler& dataHandler) const {
     double percentage_gain = calculatePercentageGain(initial_balance, dataHandler);

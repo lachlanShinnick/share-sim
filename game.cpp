@@ -31,8 +31,6 @@ void Game::goToNextFinancialYear() {
     currentYear++;
     investor->GoToNextFinancialYear();
 
-    std::cout << "Loading quantities for year: " << currentYear << std::endl;  // Debug statement
-
     switch (currentYear) {
         case 2014:
             broker.load_quantities(dataHandler.stock_prices_2014);

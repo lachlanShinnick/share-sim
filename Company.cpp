@@ -2,9 +2,11 @@
 #include <iostream>
 #include <fstream>
 
+// Constructor for company
 Company::Company(double initial_balance, const std::string& company_name, const std::vector<std::string>& board)
     : Investor(initial_balance), company_name(company_name), board_of_directors(board) {}
 
+// Print the high score of the company
 void Company::Print(const DataHandler& dataHandler) const {
     const std::string filename = "high_score.txt";
     updateHallOfFame(filename, initial_balance, dataHandler);

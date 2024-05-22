@@ -25,7 +25,7 @@ private:
     Investor* investor;
     int currentYear;
     double initialBalance;
-    Menu menu;  // Add this member variable
+    Menu menu;  
 };
 
-#endif // GAME_H
+#endif 
